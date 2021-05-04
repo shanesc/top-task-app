@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Overview from './components/Overview';
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   constructor() {
@@ -12,8 +13,12 @@ class App extends Component {
 
   addTask = (event) => {
     event.preventDefault();
+    const task = {
+      id: uuidv4(),
+      text: this.state.input,
+    };
     this.setState({
-      tasks: this.state.tasks.concat(this.state.input),
+      tasks: this.state.tasks.concat(task),
       input: '',
     });
   };
