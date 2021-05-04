@@ -16,6 +16,7 @@ class App extends Component {
     const task = {
       id: uuidv4(),
       text: this.state.input,
+      number: this.state.tasks.length + 1,
     };
     this.setState({
       tasks: this.state.tasks.concat(task),

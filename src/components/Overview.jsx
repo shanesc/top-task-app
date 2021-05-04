@@ -4,10 +4,10 @@ function Overview(props) {
   const tasks = props.taskList;
   return (
     <ul style={style}>
-      {tasks.map((task, i) => {
+      {tasks.map((task) => {
         return (
           <li key={task.id}>
-            {i + 1}. {task.text}
+            {task.number}. {task.text}
           </li>
         );
       })}
