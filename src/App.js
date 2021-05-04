@@ -6,10 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      tasks: {
-        list: [],
-        count: 0,
-      },
+      tasks: [],
       input: '',
     };
   }
@@ -21,10 +18,7 @@ class App extends Component {
       text: this.state.input,
     };
     this.setState({
-      tasks: {
-        list: this.state.tasks.list.concat(task),
-        count: this.state.tasks.count + 1,
-      },
+      tasks: this.state.tasks.concat(task),
       input: '',
     });
   };
@@ -46,8 +40,8 @@ class App extends Component {
           </label>
           <button type='submit'>Add Task</button>
         </form>
-        <span>Total tasks: {tasks.count}</span>
-        <Overview taskList={tasks.list} />
+        <span>Total tasks: {tasks.length}</span>
+        <Overview taskList={tasks} />
       </div>
     );
   }
