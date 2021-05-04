@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 
 function Overview(props) {
-  const tasks = props.taskList;
+  const { tasks, onDelete } = props;
   return (
     <ul style={style}>
       {tasks.map((task) => {
         return (
           <li key={task.id}>
             {task.number}. {task.text}
+            <button onClick={() => onDelete(task.id)}>X</button>
           </li>
         );
       })}

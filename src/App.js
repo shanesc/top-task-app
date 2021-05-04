@@ -24,6 +24,27 @@ class App extends Component {
     });
   };
 
+  deleteTask = (id) => {
+    let count = 1;
+    // take the list of tasks from state
+    const updatedTasks = this.state.tasks.reduce((tasks, task) => {
+      // filter out any tasks that dont match the id
+      if (task.id !== id) {
+        tasks = tasks.concat({
+          id: task.id,
+          text: task.text,
+          // update the task number at this point
+          number: count++,
+        });
+      }
+      return tasks;
+    }, []);
+    // set that filtered array to the new task list
+    this.setState({
+      tasks: updatedTasks,
+    });
+  };
+
   inputHandler = (event) => {
     this.setState({
       input: event.target.value,
@@ -42,7 +63,7 @@ class App extends Component {
           <button type='submit'>Add Task</button>
         </form>
         <span>Total tasks: {tasks.length}</span>
-        <Overview taskList={tasks} />
+        <Overview tasks={tasks} onDelete={this.deleteTask} />
       </div>
     );
   }
