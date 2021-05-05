@@ -7,7 +7,7 @@ class App extends Component {
     super();
     this.state = {
       tasks: [],
-      input: '',
+      input: ''
     };
   }
 
@@ -16,11 +16,11 @@ class App extends Component {
     const task = {
       id: uuidv4(),
       text: this.state.input,
-      number: this.state.tasks.length + 1,
+      number: this.state.tasks.length + 1
     };
     this.setState({
       tasks: this.state.tasks.concat(task),
-      input: '',
+      input: ''
     });
   };
 
@@ -34,20 +34,37 @@ class App extends Component {
           id: task.id,
           text: task.text,
           // update the task number at this point
-          number: count++,
+          number: count++
         });
       }
       return tasks;
     }, []);
     // set that filtered array to the new task list
     this.setState({
-      tasks: updatedTasks,
+      tasks: updatedTasks
+    });
+  };
+
+  editTask = (id, text) => {
+    // use map to iterate through all tasks
+    const updatedTasks = this.state.tasks.map((task) => {
+      // if task.id equals id
+      if (task.id === id) {
+        // set task.text to text
+        task.text = text;
+      }
+      // return task
+      return task;
+    });
+    // setState to updatedTasks
+    this.setState({
+      tasks: updatedTasks
     });
   };
 
   inputHandler = (event) => {
     this.setState({
-      input: event.target.value,
+      input: event.target.value
     });
   };
 
@@ -63,7 +80,11 @@ class App extends Component {
           <button type='submit'>Add Task</button>
         </form>
         <span>Total tasks: {tasks.length}</span>
-        <Overview tasks={tasks} onDelete={this.deleteTask} />
+        <Overview
+          tasks={tasks}
+          onDelete={this.deleteTask}
+          onEdit={this.editTask}
+        />
       </div>
     );
   }

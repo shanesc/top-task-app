@@ -1,0 +1,19 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+.task-item {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: default;
+  outline: none;
+  border-radius: 2px;
+}
+
+.editable {
+  box-shadow: 0 0 0 2px blue;
+}

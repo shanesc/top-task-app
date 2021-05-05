@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
+import './Overview.css';
+import Task from './Task';
 
 function Overview(props) {
-  const { tasks, onDelete } = props;
+  const { tasks, onDelete, onEdit } = props;
   return (
-    <ul style={style}>
+    <ul>
       {tasks.map((task) => {
         return (
-          <li key={task.id}>
-            {task.number}. {task.text}
-            <button onClick={() => onDelete(task.id)}>X</button>
-          </li>
+          <Task key={task.id} task={task} onDelete={onDelete} onEdit={onEdit} />
         );
       })}
     </ul>
@@ -17,22 +16,17 @@ function Overview(props) {
 }
 
 Overview.propTypes = {
-  taskList: PropTypes.arrayOf(
+  tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
-      text: PropTypes.string,
+      text: PropTypes.string
     })
-  ),
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 Overview.defaultProps = {
-  taskList: ['Task 1', 'Task 2', 'Task 3'],
-};
-
-const style = {
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
+  taskList: ['Task 1', 'Task 2', 'Task 3']
 };
 
 export default Overview;
