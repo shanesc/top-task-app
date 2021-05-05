@@ -24,7 +24,7 @@ class Task extends Component {
 
   toggleEditable = () => {
     this.setState({
-      isEditable: this.state.isEditable ? false : true
+      isEditable: !this.state.isEditable
     });
     this.focusTextInput();
   };
@@ -43,10 +43,14 @@ class Task extends Component {
   render() {
     const { task, onDelete } = this.props;
     const { text, isEditable } = this.state;
+
     let className = 'task-item';
+    let modifyBtn = <Button onClickHandler={this.toggleEditable} text='Edit' />;
     if (isEditable) {
       className += ' editable';
+      modifyBtn = <Button onClickHandler={this.handleTextEdit} text='Change' />;
     }
+
     return (
       <li>
         <span>{task.number}. </span>
@@ -60,11 +64,7 @@ class Task extends Component {
           ref={this.textInput}
         />
         <Button onClickHandler={() => onDelete(task.id)} text='Del' />
-        {isEditable ? (
-          <Button onClickHandler={this.handleTextEdit} text='Change' />
-        ) : (
-          <Button onClickHandler={this.toggleEditable} text='Edit' />
-        )}
+        {modifyBtn}
       </li>
     );
   }
