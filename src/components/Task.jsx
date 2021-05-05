@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Button from './Button';
 
 class Task extends Component {
   constructor() {
     super();
-
+    this.textInput = React.createRef();
     this.state = {
       text: '',
       isEditable: false
@@ -18,10 +18,15 @@ class Task extends Component {
     });
   }
 
+  focusTextInput = () => {
+    this.textInput.current.focus();
+  };
+
   toggleEditable = () => {
     this.setState({
       isEditable: this.state.isEditable ? false : true
     });
+    this.focusTextInput();
   };
 
   handleInputChange = (event) => {
@@ -30,7 +35,7 @@ class Task extends Component {
     });
   };
 
-  handleTaskChange = () => {
+  handleTextEdit = () => {
     this.props.onEdit(this.props.task.id, this.state.text);
     this.toggleEditable();
   };
@@ -52,10 +57,11 @@ class Task extends Component {
           readOnly={!isEditable}
           tabIndex={isEditable ? '0' : '-1'}
           onChange={(event) => this.handleInputChange(event)}
+          ref={this.textInput}
         />
         <Button onClickHandler={() => onDelete(task.id)} text='Del' />
         {isEditable ? (
-          <Button onClickHandler={this.handleTaskChange} text='Change' />
+          <Button onClickHandler={this.handleTextEdit} text='Change' />
         ) : (
           <Button onClickHandler={this.toggleEditable} text='Edit' />
         )}
